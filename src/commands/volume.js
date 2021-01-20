@@ -20,7 +20,7 @@ module.exports = {
                     return msg.channel.send(util.embed().setDescription("❌ | Você so pode colocar o volume de 0 a 150%"));
 
                 await music.setVolume(newVolume);
-                msg.channel.send(util.embed().setDescription(`🔉 | Volume set to \`${music.volume}\`.`));
+                msg.channel.send(util.embed().setDescription(`🔉 | Volume colocado em \`${music.volume}\`.`));
             }
         } catch (e) {
             msg.channel.send(`An error occured: ${e.message}.`);
