@@ -9,7 +9,7 @@ module.exports = {
 
         msg.channel.send(util.embed()
             .setAuthor("Lavalink Node(s) Stats", msg.client.user.displayAvatarURL())
-            .setTitle("Source Code")
+            .setTitle("Codigo Fonte")
             .setURL("https://github.com/Allvaa/lavalink-musicbot")
             .setDescription(
                 nodes.map(node  => {
