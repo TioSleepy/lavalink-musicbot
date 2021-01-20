@@ -11,7 +11,7 @@ module.exports = {
             .map(c => `\`${c.name}\``);
 
         const embed = util.embed()
-            .setAuthor("Command List", msg.client.user.displayAvatarURL())
+            .setAuthor("Lista de comandos", msg.client.user.displayAvatarURL())
             .setDescription(commands.join(", "))
             .setTimestamp();
 
