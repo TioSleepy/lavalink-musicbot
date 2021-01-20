@@ -9,10 +9,10 @@ const getLyrics = async (query) => {
 
 module.exports = {
     name: "lyrics",
-    aliases: ["ly"],
+     aliases: ["ly", "letra"],
     exec: async (msg, args) => {
         const query = args.join(" ");
-        if (!query) return msg.channel.send(util.embed().setDescription("❌ | Missing args."));
+        if (!query) return msg.channel.send(util.embed().setDescription("❌ | Faltando argumentos."));
 
         try {
             const res = await getLyrics(query);
@@ -29,7 +29,7 @@ module.exports = {
             const lyricsMsg = await msg.channel.send(embed);
             if (splittedLyrics.length > 1) await util.pagination(lyricsMsg, msg.author, splittedLyrics);
         } catch (e) {
-            if (e.message === "Sorry I couldn't find that song's lyrics") msg.channel.send(util.embed().setDescription(`❌ | ${e.message}`));
+            if (e.message === "Foi mal mais não encontrei a letra dessa musica") msg.channel.send(util.embed().setDescription(`❌ | ${e.message}`));
             else msg.channel.send(`An error occured: ${e.message}.`);   
         }
     }
