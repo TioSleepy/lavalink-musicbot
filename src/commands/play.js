@@ -6,36 +6,36 @@ module.exports = {
     exec: async (msg, args) => {
         const { music } = msg.guild;
         if (!msg.member.voice.channel)
-            return msg.channel.send(util.embed().setDescription("❌ | You must be on a voice channel."));
+            return msg.channel.send(util.embed().setDescription("❌ | Você deve estar em um canal de voz."));
         if (msg.guild.me.voice.channel && !msg.guild.me.voice.channel.equals(msg.member.voice.channel))
-            return msg.channel.send(util.embed().setDescription(`❌ | You must be on ${msg.guild.me.voice.channel} to use this command.`));
+            return msg.channel.send(util.embed().setDescription(`❌ | Você deve estar no canal ${msg.guild.me.voice.channel} para usar esse comando.`));
 
         const missingPerms = util.missingPerms(msg.guild.me.permissionsIn(msg.member.voice.channel), ["CONNECT", "SPEAK"]);
         if ((!music.player || !music.player.playing) && missingPerms.length)
-            return msg.channel.send(util.embed().setDescription(`❌ | I need ${missingPerms.length > 1 ? "these" : "this"} permission${missingPerms.length > 1 ? "s" : ""} on your voice channel: ${missingPerms.map(x => `\`${x}\``).join(", ")}.`));
+            return msg.channel.send(util.embed().setDescription(`❌ | Eu preciso das  ${missingPerms.length > 1 ? "perms" : "perm"} permission${missingPerms.length > 1 ? "" : ""} no seu canal de voz: ${missingPerms.map(x => `\`${x}\``).join(", ")}.`));
 
         if (!music.node || !music.node.connected)
-            return msg.channel.send(util.embed().setDescription("❌ | Lavalink node not connected."));
+            return msg.channel.send(util.embed().setDescription("❌ | Servidor principal desligado, favor contactar o criador do bot Tio#7717."));
 
         const query = args.join(" ");
-        if (!query) return msg.channel.send(util.embed().setDescription("❌ | Missing args."));
+        if (!query) return msg.channel.send(util.embed().setDescription("❌ | Faltam Argumentos."));
 
         try {
             const { loadType, playlistInfo: { name }, tracks } = await music.load(util.isValidURL(query) ? query : `ytsearch:${query}`);
-            if (!tracks.length) return msg.channel.send(util.embed().setDescription("❌ | Couldn't find any results."));
+            if (!tracks.length) return msg.channel.send(util.embed().setDescription("❌ | Não achei nada."));
             
             if (loadType === "PLAYLIST_LOADED") {
                 for (const track of tracks) {
                     track.requester = msg.author;
                     music.queue.push(track);
                 }
-                msg.channel.send(util.embed().setDescription(`✅ | Loaded \`${tracks.length}\` tracks from **${name}**.`));
+                msg.channel.send(util.embed().setDescription(`✅ | Carregadas \`${tracks.length}\` musicas de **${name}**.`));
             } else {
                 const track = tracks[0];
                 track.requester = msg.author;
                 music.queue.push(track);
                 if (music.player && music.player.playing)
-                    msg.channel.send(util.embed().setDescription(`✅ | **${track.info.title}** added to the queue.`));
+                    msg.channel.send(util.embed().setDescription(`✅ | **${track.info.title}** adicionada a lista.`));
             }
             
             if (!music.player) await music.join(msg.member.voice.channel);
