@@ -5,8 +5,8 @@ module.exports = {
     aliases: ["q"],
     exec: async (msg) => {
         const { music } = msg.guild;
-        if (!music.player || !music.player.playing) return msg.channel.send(util.embed().setDescription("❌ | Currently not playing anything."));
-        if (!music.queue.length) return msg.channel.send(util.embed().setDescription("❌ | Queue is empty."));
+        if (!music.player || !music.player.playing) return msg.channel.send(util.embed().setDescription("❌ | Atualmente não estou tocando nada."));
+        if (!music.queue.length) return msg.channel.send(util.embed().setDescription("❌ | A lista esta vazia."));
 
         const queue = music.queue.map((t, i) => `\`${++i}.\` **${t.info.title}** ${t.requester}`);
         const chunked = util.chunk(queue, 10).map(x => x.join("\n"));
