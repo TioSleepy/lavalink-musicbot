@@ -12,9 +12,9 @@ module.exports = {
         const chunked = util.chunk(queue, 10).map(x => x.join("\n"));
 
         const embed = util.embed()
-            .setAuthor(`${msg.guild.name} Music Queue`, msg.guild.iconURL({ dynamic: true }))
+            .setAuthor(`${msg.guild.name} Lista de Musica`, msg.guild.iconURL({ dynamic: true }))
             .setDescription(chunked[0])
-            .setFooter(`Page 1 of ${chunked.length}.`);
+            .setFooter(`Pagina 1 de ${chunked.length}.`);
 
         try {
             const queueMsg = await msg.channel.send(embed);
